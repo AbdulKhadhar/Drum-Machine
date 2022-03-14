@@ -9,7 +9,11 @@ body {
 
 body {
   user-select: none;
-  background-color: lighten(grey, 5%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: #1D1F20;
 }
 
 #root {
@@ -20,11 +24,43 @@ body {
 }
 
 .inner-container {
-  outline: 5px solid orange;
+  --borderWidth: 3px;
+  background: #1D1F20;
   position: relative;
-  width: 660px;
+  border-radius: var(--borderWidth);
+  position: relative;
+  width: 70%;
   text-align: center;
-  background-color: lighten(grey, 20%);
+ 
+  
+.inner-container:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #f8932e, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+
+@keyframes animatedgradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+  
+}
+
   .pad-bank {
     width: $padWidth * 3 + 32;
     height: $padHeight * 3 + 32;
@@ -62,6 +98,7 @@ body {
     .control {
       width: 100px;
       margin: auto;
+      color: white;
       p {
         margin-bottom: 0;
       }
@@ -98,6 +135,16 @@ body {
   border: 1px solid black;
   box-sizing: border-box;
   cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color :#07b39b;
+}
+.dev {
+  color :#07b39b;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:xx-small;
 }
 
 @media screen and (max-width: 650px) {
@@ -154,7 +201,7 @@ $contrast: 5% !default;
 
 [type='range'] {
   -webkit-appearance: none;
-  margin: $thumb-height / 2 0;
+  margin:$thumb-height, 2;
   width: $track-width;
 
   &:focus {

@@ -119,8 +119,15 @@ const bankTwo = [
   }
 ];
 
+let r=Math.floor(Math.random()*256);
+let g=Math.floor(Math.random()*256);
+let b=Math.floor(Math.random()*256);
+let rgb="rgb("+r+","+g+","+b+")";
+document.body.style.background=rgb;
+
 const activeStyle = {
-  backgroundColor: 'orange',
+  id : 'active',
+  backgroundColor: rgb,
   boxShadow: '0 3px orange',
   height: 77,
   marginTop: 13
@@ -152,10 +159,11 @@ class DrumPad extends React.Component {
     if (e.keyCode === this.props.keyCode) {
       this.playSound();
     }
+
   }
   activatePad() {
     if (this.props.power) {
-      if (this.state.padStyle.backgroundColor === 'orange') {
+      if (this.state.padStyle.id === 'active') {
         this.setState({
           padStyle: inactiveStyle
         });
@@ -189,19 +197,18 @@ class DrumPad extends React.Component {
   }
   render() {
     return (
-      <div
+     <div
         className='drum-pad'
         id={this.props.clipId}
         onClick={this.playSound}
         style={this.state.padStyle}
-        >
-        <audio
-          className='clip'
-          id={this.props.keyTrigger}
-          src={this.props.clip}
-        />
-        {this.props.keyTrigger}
-      </div>
+      >
+          <audio
+            className='clip'
+            id={this.props.keyTrigger}
+            src={this.props.clip} />
+          {this.props.keyTrigger}
+        </div>
     );
   }
 }
@@ -306,19 +313,19 @@ class App extends React.Component {
   render() {
     const powerSlider = this.state.power
       ? {
-          float: 'right'
-        }
+        float: 'right'
+      }
       : {
-          float: 'left'
-        };
+        float: 'left'
+      };
     const bankSlider =
       this.state.currentPadBank === bankOne
         ? {
-            float: 'left'
-          }
+          float: 'left'
+        }
         : {
-            float: 'right'
-          };
+          float: 'right'
+        };
     {
       const clips = [].slice.call(document.getElementsByClassName('clip'));
       clips.forEach(sound => {
@@ -331,13 +338,7 @@ class App extends React.Component {
           clipVolume={this.state.sliderVal}
           currentPadBank={this.state.currentPadBank}
           power={this.state.power}
-          updateDisplay={this.displayClipName}
-        />
-
-        <div className='logo'>
-          <div className='inner-logo '>{'FCC' + String.fromCharCode(160)}</div>
-          <i className='inner-logo fa fa-free-code-camp' />
-        </div>
+          updateDisplay={this.displayClipName} />
 
         <div className='controls-container'>
           <div className='control'>
@@ -354,8 +355,7 @@ class App extends React.Component {
               onChange={this.adjustVolume}
               step='0.01'
               type='range'
-              value={this.state.sliderVal}
-            />
+              value={this.state.sliderVal} />
           </div>
           <div className='control'>
             <p>Bank</p>
@@ -363,7 +363,10 @@ class App extends React.Component {
               <div className='inner' style={bankSlider} />
             </div>
           </div>
+          <a href="/"><h6>Refresh</h6> <i className="fa fa-refresh"></i></a>
+          <a href="https://github.com/Abdulkhadhar" className="dev">Developed by Abu</a>
         </div>
+
       </div>
     );
   }
